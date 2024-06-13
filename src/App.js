@@ -54,7 +54,7 @@ function App() {
         headers: {
           'accept' : 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.SYNTHESIA_API_KEY}`
+          'Authorization': `Bearer 746ee48b3c0121d39170d3c01757066e`
         },
         body: JSON.stringify(payload),
       });
