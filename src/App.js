@@ -40,12 +40,11 @@ function App() {
     setError(null);
 
     const payload = {
-      templateId: 'your-template-id', 
       title: 'Personalized Video',
       video: {
         script: `Hi ${formData.profile.name}, we are excited to introduce our product ${formData.product.name} from ${formData.company.name}. It costs ${formData.product.price} and here is why you should be interested: ${formData.product.description}. Contact us at ${formData.company.phone}.`,
-        avatar: 'your-avatar-id', 
-        background: 'background-id',
+        avatar: 'anna_costume1_cameraA', 
+        background: 'green',
         length: 15 // Maximum video length of 15 seconds
       },
       metadata: {
@@ -62,6 +61,8 @@ function App() {
         },
         body: JSON.stringify(payload),
       });
+
+      console.log(response);
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
