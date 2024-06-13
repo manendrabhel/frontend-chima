@@ -40,6 +40,7 @@ function App() {
     setError(null);
 
     const payload = {
+      test: "true",
       title: 'Personalized Video',
       video: {
         script: `Hi ${formData.profile.name}, we are excited to introduce our product ${formData.product.name} from ${formData.company.name}. It costs ${formData.product.price} and here is why you should be interested: ${formData.product.description}. Contact us at ${formData.company.phone}.`,
