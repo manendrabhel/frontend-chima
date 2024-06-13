@@ -20,10 +20,6 @@ function App() {
     },
   });
 
-  const [videoUrl, setVideoUrl] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
   const handleChange = (section, field, value) => {
     setFormData({
       ...formData,
@@ -34,46 +30,10 @@ function App() {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    const payload = {
-      templateId: 'your-template-id', 
-      title: 'Personalized Video',
-      video: {
-        script: `Hi ${formData.profile.name}, we are excited to introduce our product ${formData.product.name} from ${formData.company.name}. It costs ${formData.product.price} and here is why you should be interested: ${formData.product.description}. Contact us at ${formData.company.phone}.`,
-        avatar: 'your-avatar-id', 
-        background: 'background-id',
-        length: 15 // Maximum video length of 15 seconds
-      },
-      metadata: {
-        targetGroup: `Profile Name: ${formData.profile.name}, Age: ${formData.profile.age}, Email: ${formData.profile.email}`
-      }
-    };
-
-    try {
-      const response = await fetch('https://api.synthesia.io/v2/videos', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.SYNTHESIA_API_KEY}` 
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      setVideoUrl(data.videoUrl); 
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
+    // Handle form submission
+    console.log('Form Submitted:', formData);
   };
 
   return (
@@ -177,23 +137,8 @@ function App() {
               required
             />
           </label>
-          <button type="submit" disabled={loading}>
-            {loading ? 'Generating Video...' : 'Submit'}
-          </button>
+          <button type="submit">Submit</button>
         </form>
-        {error && <div className="error">{error}</div>}
-        {videoUrl && (
-          <div className="video-container">
-            <h2>Generated Video</h2>
-            <video controls>
-              <source src={videoUrl} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <a href={videoUrl} download="generated_video.mp4">
-              Download Video
-            </a>
-          </div>
-        )}
       </main>
     </div>
   );
