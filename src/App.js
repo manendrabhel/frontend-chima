@@ -51,6 +51,7 @@ function App() {
     try {
       const response = await fetch('https://api.synthesia.io/v2/videos', {
         method: 'POST',
+        mode: "cors",
         headers: {
           'accept' : 'application/json',
           'Content-Type': 'application/json',
