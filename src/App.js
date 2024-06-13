@@ -42,13 +42,10 @@ function App() {
     const payload = {
       test: "true",
       title: 'Personalized Video',
-      script_text: `Hi ${formData.profile.name}, we are excited to introduce our product ${formData.product.name} from ${formData.company.name}. It costs ${formData.product.price} and here is why you should be interested: ${formData.product.description}. Contact us at ${formData.company.phone}.`,
+      script_text: "This is my first video by synthesia",
       avatar: 'anna_costume1_cameraA', 
       background: 'green_screen',
       length: 15, // Maximum video length of 15 seconds
-      metadata: {
-        targetGroup: `Profile Name: ${formData.profile.name}, Age: ${formData.profile.age}, Email: ${formData.profile.email}`
-      }
     };
 
     try {
@@ -57,7 +54,7 @@ function App() {
         headers: {
           'accept' : 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': process.env.SYNTHESIA_API_KEY 
+          'Authorization': `${process.env.SYNTHESIA_API_KEY}` 
         },
         body: JSON.stringify(payload),
       });
