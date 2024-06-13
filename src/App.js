@@ -57,7 +57,7 @@ function App() {
         headers: {
           'accept' : 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `${process.env.SYNTHESIA_API_KEY}` 
+          'Authorization': process.env.SYNTHESIA_API_KEY 
         },
         body: JSON.stringify(payload),
       });
