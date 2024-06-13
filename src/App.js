@@ -58,7 +58,7 @@ function App() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.SYNTHESIA_API_KEY}` 
+          'Authorization': `${process.env.SYNTHESIA_API_KEY}` 
         },
         body: JSON.stringify(payload),
       });
