@@ -20,6 +20,10 @@ function App() {
     },
   });
 
+  const [videoUrl, setVideoUrl] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const handleChange = (section, field, value) => {
     setFormData({
       ...formData,
@@ -30,10 +34,47 @@ function App() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form Submitted:', formData);
+    setLoading(true);
+    setError(null);
+
+    const payload = {
+        "test":false,
+        "input" : [{
+            "scriptText": "Hello, World! This is my first synthetic video, made with the Synthesia API!",
+            "avatar": "anna_costume1_cameraA",
+            "background": "green_screen",
+        }],
+      avatar: 'anna_costume1_cameraA', 
+      background: 'green_screen',
+      length: 15, // Maximum video length of 15 seconds
+    };
+
+    try {
+      const response = await fetch('https://api.synthesia.io/v2/videos', {
+        method: 'POST',
+        headers: {
+          'accept' : 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `746ee48b3c0121d39170d3c01757066e`
+        },
+        body: JSON.stringify(payload),
+      });
+
+      console.log(response);
+
+      if (!response.ok) {
+        throw new Error(response);
+      }
+
+      const data = await response.json();
+      setVideoUrl(data.videoUrl); 
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -137,8 +178,23 @@ function App() {
               required
             />
           </label>
-          <button type="submit">Submit</button>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Generating Video...' : 'Submit'}
+          </button>
         </form>
+        {error && <div className="error">{error}</div>}
+        {videoUrl && (
+          <div className="video-container">
+            <h2>Generated Video</h2>
+            <video controls>
+              <source src={videoUrl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <a href={videoUrl} download="generated_video.mp4">
+              Download Video
+            </a>
+          </div>
+        )}
       </main>
     </div>
   );
