@@ -60,7 +60,7 @@ function App() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `746ee48b3c0121d39170d3c01757066e` // Replace with your actual API key
+          'Authorization': `${process.env.REACT_APP_SYNTHESIA_API_KEY}` // Replace with your actual API key
         },
         body: JSON.stringify(payload),
       });
@@ -90,7 +90,7 @@ function App() {
         const rawData = await fetch(`https://api.synthesia.io/v2/videos/${videoId}`, {
           method: 'GET',
           headers: {
-            'Authorization': `746ee48b3c0121d39170d3c01757066e`, // Replace with your actual API key
+            'Authorization': `${process.env.REACT_APP_SYNTHESIA_API_KEY}`, // Replace with your actual API key
             'Accept':'application/json'
           }
         });
