@@ -40,9 +40,12 @@ function App() {
     setError(null);
 
     const payload = {
-      test: "true",
-      title: 'Personalized Video',
-      script_text: "This is my first video by synthesia",
+        "test":true,
+        "input" : [{
+            "scriptText": "Hello, World! This is my first synthetic video, made with the Synthesia API!",
+            "avatar": "anna_costume1_cameraA",
+            "background": "green_screen",
+        }],
       avatar: 'anna_costume1_cameraA', 
       background: 'green_screen',
       length: 15, // Maximum video length of 15 seconds
@@ -51,11 +54,10 @@ function App() {
     try {
       const response = await fetch('https://api.synthesia.io/v2/videos', {
         method: 'POST',
-        mode: "cors",
         headers: {
           'accept' : 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `Bearer 746ee48b3c0121d39170d3c01757066e`
+          'Authorization': `746ee48b3c0121d39170d3c01757066e`
         },
         body: JSON.stringify(payload),
       });
