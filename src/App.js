@@ -80,7 +80,7 @@ function App() {
   const pollVideoStatus = async (videoId) => {
     const intervalId = setInterval(async () => {
       try {
-        const response = await fetch(`https://api.synthesia.io/v2/videos/${videoId}`, {
+        const rawData = await fetch(`https://api.synthesia.io/v2/videos/${videoId}`, {
           method: 'GET',
           headers: {
             'Authorization': `746ee48b3c0121d39170d3c01757066e`, // Replace with your actual API key
@@ -88,14 +88,14 @@ function App() {
           }
         });
 
-        if (!response.ok) {
+        if (!rawData.ok) {
           throw new Error('Network response was not ok');
         }
 
         console.log('--------------------------------------------------------Retriece data---------------------');
-        console.log(response);
+        console.log(rawData);
 
-        const data = await response.json();
+        const data = await rawData.json();
 
         console.log('-------------------------------------API response for get api-------------------');
         console.log(data);
