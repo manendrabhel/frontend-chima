@@ -65,7 +65,10 @@ function App() {
         throw new Error('Network response was not ok');
       }
 
+      console.log(response);
       const data = await response.json();
+      console.log('--------------------------------------------------------');
+      console.log(data);
       const videoId = data.id; // Assuming the response contains the video ID
       pollVideoStatus(videoId); // Start polling for video status
     } catch (error) {
@@ -89,7 +92,15 @@ function App() {
           throw new Error('Network response was not ok');
         }
 
+        console.log('--------------------------------------------------------Retriece data---------------------');
+        console.log(response);
+        console.log('--------------------------------------------------------');
+        console.log(data);
+
         const data = await response.json();
+
+        console.log('--------------------------------------------------------');
+        console.log(data);
         if (data.status === 'complete') {
           setVideoUrl(data.downloadUrl); // Assuming the response contains the download URL
           clearInterval(intervalId);
