@@ -62,10 +62,10 @@ function App() {
         body: JSON.stringify(payload),
       });
 
-      console.log(response);
+      console.log(response.data);
 
       if (!response.ok) {
-        throw new Error(response.context);
+        throw new Error(response.data);
       }
 
       const data = await response.json();
