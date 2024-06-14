@@ -34,6 +34,10 @@ function App() {
     });
   };
 
+  /*
+  This function is handle submi event, call Synthesia API to create video with given inputs.
+  once video created it'll generate video id, this id we'll pass in pollVideoStatus(video_id) to retrieve status of video.
+  */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -64,11 +68,9 @@ function App() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      console.log('------------------------------Create video API Raw response--------------------------');
-      console.log(response);
+
       const data = await response.json();
-      console.log('------------------------------Create video API--------------------------');
-      console.log(data);
+
       const videoId = data.id; // Assuming the response contains the video ID
       pollVideoStatus(videoId); // Start polling for video status
     } catch (error) {
@@ -77,6 +79,11 @@ function App() {
     }
   };
 
+  /*
+    This function is used to pull video status and once video generation complete retrieve that generated video
+    and show in front end as well as generate a link to download video.
+    I've used here a interval function to fetch video status once get 'complete' status, clearInterval() call to destroy interval.
+*/
   const pollVideoStatus = async (videoId) => {
     const intervalId = setInterval(async () => {
       try {
@@ -92,13 +99,8 @@ function App() {
           throw new Error('Network response was not ok');
         }
 
-        console.log('--------------------------------------------------------Retriece data---------------------');
-        console.log(rawData);
-
         const data = await rawData.json();
 
-        console.log('-------------------------------------API response for get api-------------------');
-        console.log(data);
         if (data.status === 'complete') {
           setVideoUrl(data.download); // Assuming the response contains the download URL
           clearInterval(intervalId);
