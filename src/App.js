@@ -99,11 +99,11 @@ function App() {
 
         console.log('-------------------------------------API response for get api-------------------');
         console.log(data);
-        //if (data.status === 'complete') {
+        if (data.status === 'complete') {
           setVideoUrl(data.download); // Assuming the response contains the download URL
           clearInterval(intervalId);
           setLoading(false);
-        //}
+        }
       } catch (error) {
         setError(error.message);
         clearInterval(intervalId);
