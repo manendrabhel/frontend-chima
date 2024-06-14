@@ -40,7 +40,7 @@ function App() {
     setError(null);
 
     const payload = {
-        "test":true,
+        "test":false,
         "input" : [{
             "scriptText": "Hello, World! This is my first synthetic video, made with the Synthesia API!",
             "avatar": "anna_costume1_cameraA",
@@ -62,10 +62,10 @@ function App() {
         body: JSON.stringify(payload),
       });
 
-      console.log(response.data);
+      console.log(response);
 
       if (!response.ok) {
-        throw new Error(response.data);
+        throw new Error(response);
       }
 
       const data = await response.json();
